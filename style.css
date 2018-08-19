@@ -4,30 +4,6 @@ h1 {
     text-align: center;
 }
 
-#userBoard {
-    background-color: rgb(193, 194, 211);
-    width: 500px;
-    height: 549px;
-}
-
-.btn-group {
-    position: relative;
-    left: 120px;
-    top: 40px;
-}
-
-.resultsBox {
-    width: 280px;
-    height: 250px;
-    background-color: white;
-    border-style: double;
-    border-color: rgb(170, 170, 170);
-
-    position: relative;
-    left: 110px;
-    top: 80px;
-}
-
 #surroundingImageOne {
     position: fixed;
     left: 500px;
@@ -48,6 +24,12 @@ h1 {
     width: 356px;
 }
 
+#userBoard {
+    background-color: rgb(193, 194, 211);
+    width: 500px;
+    height: 549px;
+}
+
 #otherPlayerBoard {
     background-color: rgb(177, 162, 184);
     width: 500px;
@@ -56,4 +38,25 @@ h1 {
     position: fixed;
     left: 856px;
     bottom: 355px;
+}
+
+.btn-group {
+    position: relative;
+    top: 40px;
+}
+
+.resultsBox {
+    width: 280px;
+    height: 250px;
+    background-color: white;
+    border-style: double;
+    border-color: rgb(170, 170, 170);
+
+    position: relative;
+    left: 110px;
+    top: 80px;
+}
+
+* {
+    text-align: center;
 }

@@ -1,3 +1,7 @@
+// Function calling
+displayGIF();
+
+// Displaying and pausing GIF
 function displayGIF () {
     var something = "rock paper scissors"
     var URL = "https://api.giphy.com/v1/gifs/search?q=" + something + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -29,4 +33,28 @@ function displayGIF () {
     })
 };
 
-displayGIF();
+
+$("#userRock").on("click", function() {
+
+    $("#userResultsBox").empty();
+    $("#userResultsBox").append("You chose <b> Rock! <b>");
+    $("#userResultsBox").append("<br> The Other Player picked ____");
+
+});
+
+$("#userPaper").on("click", function() {
+
+    $("#userResultsBox").empty();
+    $("#userResultsBox").append("You chose <b> Paper! <b>");
+    $("#userResultsBox").append("<br> The Other Player picked ____");
+});
+
+$("#userScissors").on("click", function() {
+
+    $("#userResultsBox").empty();
+    $("#userResultsBox").append("You chose <b> Scissors! <b>");
+    $("#userResultsBox").append("<br> The Other Player picked ____");
+});
+
+
+
