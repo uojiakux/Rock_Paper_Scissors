@@ -15,6 +15,7 @@ function displayGIF () {
     var gifImage = $("<img>")
 
     gifImage.attr("src", results[4].images.fixed_height.url);
+    gifImage.attr("data-still", results[4].images.fixed_height_still.url)
 
     gifDiv.prepend(gifImage);
     $("#rockpaperscissorsGIF").prepend(gifDiv);
@@ -22,10 +23,7 @@ function displayGIF () {
     
     $(gifImage).on("click", function pauseORstartGIF () {
 
-
-    // Import code from finished homework here
-
-
+        $(this).attr("src", $(this).attr("data-still"));
 
     })
     })

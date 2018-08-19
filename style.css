@@ -1,3 +1,59 @@
+h1 {
+    color: rgb(50, 51, 66);
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+}
+
+#userBoard {
+    background-color: rgb(193, 194, 211);
+    width: 500px;
+    height: 549px;
+}
+
+.btn-group {
+    position: relative;
+    left: 120px;
+    top: 40px;
+}
+
+.resultsBox {
+    width: 280px;
+    height: 250px;
+    background-color: white;
+    border-style: double;
+    border-color: rgb(170, 170, 170);
+
+    position: relative;
+    left: 110px;
+    top: 80px;
+}
+
+#surroundingImageOne {
+    position: fixed;
+    left: 500px;
+    bottom: 809px;
+    width: 356px;
+}
+
+#rockpaperscissorsGIF {
+    position: fixed;
+    left: 500px;
+    bottom: 600px;
+}
+
+#surroundingImageTwo {
+    position: fixed;
+    left: 500px;
+    bottom: 354px;
+    width: 356px;
+}
+
 #otherPlayerBoard {
-    float: right;
+    background-color: rgb(177, 162, 184);
+    width: 500px;
+    height: 549px;
+
+    position: fixed;
+    left: 856px;
+    bottom: 355px;
 }
