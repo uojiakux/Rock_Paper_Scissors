@@ -37,6 +37,7 @@ h1 {
 }
 
 #otherPlayerBoard {
+    background-color: rgb(177, 162, 184);
     position: fixed;
     left: 856px;
     bottom: 355px;
@@ -70,7 +71,7 @@ h1 {
     background-color: rgb(199, 199, 199);
     border-top: double 0.5px rgb(157, 157, 167);
     width: 1356px;
-    height: 200px;
+    height: 239px;
 
     position: fixed;
     top: 549px;
