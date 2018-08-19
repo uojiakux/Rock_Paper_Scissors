@@ -91,6 +91,23 @@ $("#userScissors").on("click", function() {
     });
 });
 
+// When you get time... change bootstrap chatroom textbox to just a regular blank div (same dimensions) instead
+$("#userInput").keypress(function(event) {
 
+    var userComment = $("#userInput").val().trim();
+
+    if(event.which == 13) {
+        event.preventDefault();
+        $("#exampleFormControlTextarea1").text("UserOne: " + userComment)
+
+    // Figure out why this is not working
+    // $("#userInput").empty();
+
+    database.ref().set({
+        LatestFirstUserChoice: userPick,
+        FirstUserComment: userComment
+    });
+    }
+});
 
 
