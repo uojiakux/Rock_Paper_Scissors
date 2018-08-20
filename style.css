@@ -40,7 +40,7 @@ h1 {
     background-color: rgb(177, 162, 184);
     position: fixed;
     left: 856px;
-    bottom: 355px;
+    bottom: 404px;
 }
 
 .btn-group {
@@ -79,4 +79,9 @@ h1 {
 
     color: rgb(31, 30, 34);
     font-weight: 40px;
+}
+
+#exampleFormControlTextarea1 {
+    max-height: 150px;
+    overflow: auto;
 }

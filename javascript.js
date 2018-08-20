@@ -98,7 +98,7 @@ $("#userInput").keypress(function(event) {
 
     if(event.which == 13) {
         event.preventDefault();
-        $("#exampleFormControlTextarea1").text("UserOne: " + userComment)
+        $("#exampleFormControlTextarea1").append("UserOne: " + userComment + "<br>")
 
     // Figure out why this is not working
     // $("#userInput").empty();
