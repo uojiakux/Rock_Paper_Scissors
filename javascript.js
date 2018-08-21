@@ -49,17 +49,42 @@ firebase.initializeApp(config);
 // Creating a variable to reference the database.
 var database = firebase.database();
 
+// connectionsRef references a specific location in our database.
+// All of our connections will be stored in this directory.
+var connectionsRef = database.ref("/connections");
+
+// '.info/connected' is a special location provided by Firebase that is updated every time
+// the client's connection state changes.
+// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
+var connectedRef = database.ref(".info/connected");
+
+    // When the client's connection state changes...
+    connectedRef.on("value", function(snap) {
+
+        // If they are connected...
+        if (snap.val()) {
+
+            // Add user to the connections list
+            var con = connectionsRef.push(true);
+
+            // Remove user from the connection list when they disconnect.
+            con.onDisconnect().remove();
+        }
+    });
+
+
 var userPick
 
 $("#userRock").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Rock! <b>");
-    $("#userResultsBox").append("<br> The Other Player picked ____");
+    // $("#userResultsBox").append("<br> The Other Player picked ____");
+    $("#otherplayerResultsBox").empty();
 
     userPick = "Rock";
 
-    database.ref().set({
+    database.ref("/clicks").set({
         LatestFirstUserChoice: userPick
     });
 
@@ -69,11 +94,12 @@ $("#userPaper").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Paper! <b>");
-    $("#userResultsBox").append("<br> The Other Player picked ____");
+    // $("#userResultsBox").append("<br> The Other Player picked ____");
+    $("#otherplayerResultsBox").empty();
 
     userPick = "Paper";
 
-    database.ref().set({
+    database.ref("/clicks").set({
         LatestFirstUserChoice: userPick
     });
 });
@@ -82,14 +108,30 @@ $("#userScissors").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Scissors! <b>");
-    $("#userResultsBox").append("<br> The Other Player picked ____");
+    // $("#userResultsBox").append("<br> The Other Player picked ____");
+    $("#otherplayerResultsBox").empty();
 
     userPick = "Scissors";
 
-    database.ref().set({
+    database.ref("/clicks").set({
         LatestFirstUserChoice: userPick
     });
 });
+
+// At the page load and subsequent value changes, get a snapshot of the local data.
+// This callback allows the page to stay updated with the values in firebase node "clicks"
+database.ref("/clicks").on("value", function(shot) {
+
+    computerChoice = shot.val().LatestFirstUserChoice;
+    //How do I clear the console each time?
+    console.log(computerChoice);
+    $("#otherplayerResultsBox").append("<br> The Other Player picked " + computerChoice);
+
+
+
+});
+
+
 
 // When you get time... change bootstrap chatroom textbox to just a regular blank div (same dimensions) instead
 $("#userInput").keypress(function(event) {
@@ -104,10 +146,25 @@ $("#userInput").keypress(function(event) {
     // $("#userInput").empty();
 
     database.ref().set({
-        LatestFirstUserChoice: userPick,
+        // LatestFirstUserChoice: userPick,
         FirstUserComment: userComment
     });
     }
 });
+
+// Retrieve the data from the database initially and every time something changes in the chat room
+// database.ref().on("value", function(snapshot) {
+
+//     // console.log(snapshot.val());
+
+
+
+
+
+// }, function(errorObject) {
+//         console.log("Errors handled: " + errorObject.code);
+//       }
+// );
+
 
 
