@@ -132,8 +132,6 @@ database.ref("/clicks").on("value", function(shot) {
 });
 
 
-
-// When you get time... change bootstrap chatroom textbox to just a regular blank div (same dimensions) instead
 $("#userInput").keypress(function(event) {
 
     var userComment = $("#userInput").val().trim();
@@ -145,7 +143,8 @@ $("#userInput").keypress(function(event) {
     // Figure out why this is not working
     // $("#userInput").empty();
 
-    database.ref().set({
+    // Changed chatroom updates to database.ref().push() instead of database.ref().set(), because .set() will overwrite the changes
+    database.ref().push({
         // LatestFirstUserChoice: userPick,
         FirstUserComment: userComment
     });
