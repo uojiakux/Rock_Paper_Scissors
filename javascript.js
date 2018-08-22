@@ -1,3 +1,6 @@
+// Figure out why this is not working. Clear Divs before game starts. 
+    // $("#otherplayerResultsBox").empty();
+
 // Function calling
 displayGIF();
 
@@ -49,13 +52,8 @@ firebase.initializeApp(config);
 // Creating a variable to reference the database.
 var database = firebase.database();
 
-// connectionsRef references a specific location in our database.
-// All of our connections will be stored in this directory.
 var connectionsRef = database.ref("/connections");
 
-// '.info/connected' is a special location provided by Firebase that is updated every time
-// the client's connection state changes.
-// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
 var connectedRef = database.ref(".info/connected");
 
     // When the client's connection state changes...
@@ -79,13 +77,13 @@ $("#userRock").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Rock! <b>");
-    // $("#userResultsBox").append("<br> The Other Player picked ____");
     $("#otherplayerResultsBox").empty();
 
     userPick = "Rock";
 
-    database.ref("/clicks").set({
-        LatestFirstUserChoice: userPick
+    database.ref("/clicks").push({
+        LatestFirstUserChoice: userPick,
+        // dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
 });
@@ -94,13 +92,13 @@ $("#userPaper").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Paper! <b>");
-    // $("#userResultsBox").append("<br> The Other Player picked ____");
     $("#otherplayerResultsBox").empty();
 
     userPick = "Paper";
 
-    database.ref("/clicks").set({
-        LatestFirstUserChoice: userPick
+    database.ref("/clicks").push({
+        LatestFirstUserChoice: userPick,
+        // dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 });
 
@@ -108,32 +106,28 @@ $("#userScissors").on("click", function() {
 
     $("#userResultsBox").empty();
     $("#userResultsBox").append("You chose <b> Scissors! <b>");
-    // $("#userResultsBox").append("<br> The Other Player picked ____");
     $("#otherplayerResultsBox").empty();
 
     userPick = "Scissors";
 
-    database.ref("/clicks").set({
-        LatestFirstUserChoice: userPick
+    database.ref("/clicks").push({
+        LatestFirstUserChoice: userPick,
+        // dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 });
 
-// At the page load and subsequent value changes, get a snapshot of the local data.
-// This callback allows the page to stay updated with the values in firebase node "clicks"
-database.ref("/clicks").on("value", function(shot) {
+
+database.ref("/clicks").on("child_added", function(shot) {
 
     computerChoice = shot.val().LatestFirstUserChoice;
-    //How do I clear the console each time?
-    console.log(computerChoice);
-    $("#otherplayerResultsBox").append("<br> The Other Player picked " + computerChoice);
-
-
+    
+    $("#otherplayerResultsBox").html("<br> The Other Player picked " + computerChoice);
 
 });
 
 
 $("#userInput").keypress(function(event) {
-
+    
     var userComment = $("#userInput").val().trim();
 
     if(event.which == 13) {
@@ -143,27 +137,25 @@ $("#userInput").keypress(function(event) {
     // Figure out why this is not working
     // $("#userInput").empty();
 
-    // Changed chatroom updates to database.ref().push() instead of database.ref().set(), because .set() will overwrite the changes
-    database.ref().push({
-        // LatestFirstUserChoice: userPick,
-        FirstUserComment: userComment
+        database.ref("/chatcomments").push({
+            UserComment: userComment
     });
     }
 });
 
-// Retrieve the data from the database initially and every time something changes in the chat room
-// database.ref().on("value", function(snapshot) {
+// Didn't figure out how to work this
+// database.ref("/chatcomments").on("child_added", function(snapped) {
 
-//     // console.log(snapshot.val());
+//     showComment = snapped.val().UserComment;
 
+//     $("#exampleFormControlTextarea1").append("UserOne: " + UserComment + "<br>");
 
-
-
-
-// }, function(errorObject) {
-//         console.log("Errors handled: " + errorObject.code);
-//       }
-// );
+// })
 
 
+
+// Was not able to finish but this is what the rest of the game would need...
+// 1. A way to compare the first user and second user's selection and determine who won the round
+// 2. A way to hide the selection of each user's pick until the winner is announced
+// 3. A way to get the chatroom to update in real time with the comments the users write in it
 
